@@ -202,15 +202,19 @@ If you need to reschedule or cancel, please contact the clinic.
         const data = await response.json();
         console.log("Google Calendar Event Created:", data);
 
-        sendConfirmationEmail(
-            token,
-            userEmail ,
-            "patientName",
-            dateStr,
-            timeStr,
-            doctorName,
-            ''
-        )
+        try {
+            sendConfirmationEmail(
+                token,
+                userEmail ,
+                "patientName",
+                dateStr,
+                timeStr,
+                doctorName,
+                ''
+            )
+        } catch (error) {
+            console.log("email not working",error.message)
+        }
         return thankYouMessage;
     } catch (error) {
         console.error("Error in createGoogleCalendarEvent:", error);
